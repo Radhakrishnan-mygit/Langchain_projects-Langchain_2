@@ -6,3 +6,5 @@ langchain-groq
 langchain-google-genai
 langchain-openai
 langgraph
+langgraph-prebuilt
+langgraph-cli[inmem]
