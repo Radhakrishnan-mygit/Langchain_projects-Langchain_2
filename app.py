@@ -1,6 +1,8 @@
 from langgraph.graph import StateGraph,MessagesState,START,END
 from langgraph.prebuilt import ToolNode,tools_condition
 from langchain_core.messages import HumanMessage,SystemMessage,AIMessage
+from langgraph.checkpoint.memory import MemorySaver
+
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -57,6 +59,7 @@ def assistant(state:MessagesState):
 
 
 graph=StateGraph(MessagesState)
+memory=MemorySaver()
 
 graph.add_node("assistant",assistant)
 graph.add_node("tools",ToolNode(tools))
@@ -64,4 +67,7 @@ graph.add_edge(START,"assistant")
 graph.add_conditional_edges("assistant",tools_condition)
 graph.add_edge("tools","assistant")
 
-builder=graph.compile()
+builder=graph.compile(checkpointer=memory)
+
+config={"configuration":{"thread_id":"1"}}
+
