@@ -8,3 +8,5 @@ langchain-openai
 langgraph
 langgraph-prebuilt
 langgraph-cli[inmem]
+arxiv
+wikipedia
